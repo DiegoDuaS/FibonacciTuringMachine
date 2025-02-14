@@ -1,10 +1,13 @@
+import time  
+
 def run_turing_machine(machine, input_string):
     tape = list(input_string) + ["_"]  
     head = 0
     state = machine["init"]
     accept_state = machine["accept"]
     transitions = machine["transitions"]
-    
+
+    start_time = time.time()  
     while state != accept_state:
         symbol = tape[head]
         key = f"{state},{symbol}"
@@ -25,5 +28,10 @@ def run_turing_machine(machine, input_string):
                 tape.append("_")
         elif move == "<":
             head = max(0, head - 1)
-    
+
+    end_time = time.time()  
+    execution_time = end_time - start_time  
+
+    print(f"\nTiempo total de ejecución: {execution_time:.6f} segundos")  
+
     return "".join(tape)
